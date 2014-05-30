@@ -13,7 +13,8 @@ import java.util.Vector;
  */
 public class VirtualSafary
 {
-  public static void main(String[] agrs) {
+  public static void main(String[] agrs)
+  {
     MainFrame frame = new MainFrame();
     frame.setVisible(true);                 //видимость
     frame.setSize(900, 650);                //размеры
@@ -30,14 +31,16 @@ public class VirtualSafary
     Random rand = new Random();
     //генерируем карту растений
     for (int i = 0; i < Animal.mapPlant.length; ++i)
-      for (int j = 0; j < Animal.mapPlant[i].length; ++j) {
+      for (int j = 0; j < Animal.mapPlant[i].length; ++j)
+      {
         Animal.mapPlant[i][j] = rand.nextInt(30) + 10;
         if (rand.nextInt(4) <= 2)
           Animal.mapPlant[i][j] = 0;
       }
     //инициализируем карты пустыми
     for (int i = 0; i < 11; ++i)
-      for (int j = 0; j < 19; ++j) {
+      for (int j = 0; j < 19; ++j)
+      {
         Animal.mapPredator[i][j] = new Vector<Animal>();
         Animal.mapHerbivores[i][j] = new Vector<Animal>();
       }
@@ -52,6 +55,7 @@ public class VirtualSafary
     Animal.mapHerbivores[5 + 4][9 + 1].add(animal8);
     WorkFile.newFile();
   }
+
   public static Animal animal = new Giraffe("Nik", 0, 0, true);
   public static Animal animal6 = new Giraffe("Lot", 2, 0, true);
   public static Animal animal7 = new Giraffe("Fod", 1, 1, true);
@@ -67,7 +71,8 @@ public class VirtualSafary
  */
 class MainFrame extends JFrame
 {
-  public MainFrame() {                      //менюшко, панельки
+  public MainFrame()
+  {                      //менюшко, панельки
     setTitle("Virtual Safary");
 
     //меню: Animal(download, Add, Unload), Time
@@ -76,7 +81,8 @@ class MainFrame extends JFrame
     JMenuItem downloadItem = AnimalMenu.add(new AbstractAction()
     {
       @Override
-      public void actionPerformed(ActionEvent actionEvent) {
+      public void actionPerformed(ActionEvent actionEvent)
+      {
         WorkFile.newFile();
         for (int i = 0; i < Animal.elements.size(); ++i)
           WorkFile.write(Animal.elements.get(i).infoToString());
@@ -91,7 +97,8 @@ class MainFrame extends JFrame
     JMenuItem addItem = AnimalMenu.add(new AbstractAction()
     {
       @Override
-      public void actionPerformed(ActionEvent actionEvent) {
+      public void actionPerformed(ActionEvent actionEvent)
+      {
         JDialog md = new NewAnimalDialogD();
         md.setVisible(true);
       }
@@ -102,7 +109,8 @@ class MainFrame extends JFrame
     JMenuItem unloadItem = AnimalMenu.add(new AbstractAction()
     {
       @Override
-      public void actionPerformed(ActionEvent actionEvent) {
+      public void actionPerformed(ActionEvent actionEvent)
+      {
         WorkFile.read();
 
       }
@@ -153,26 +161,28 @@ class MainFrame extends JFrame
          * и по нему обновляется информация на верхней панельке
          */
         new ListSelectionListener()
-                                                {
-                                                  @Override
-                                                  public void valueChanged(ListSelectionEvent Event) {
-                                                    String value;
-                                                    int indexValue;
-                                                    if (nameAnimalList.getSelectedValue() != null)
-                                                    {
-                                                      value = nameAnimalList.getSelectedValue().getName();
-                                                      indexValue = 0;
-                                                      while (indexValue < Animal.elements.getSize())
-                                                        if (value.equals(Animal.elements.elementAt(indexValue).getName()))
-                                                          break;
-                                                        else
-                                                          indexValue++;
-                                                      if (indexValue < Animal.elements.getSize())
-                                                        VirtualSafary.animal = Animal.elements.elementAt(indexValue);
-                                                      printAnimal();
-                                                    }
-                                                  }
-                                                });
+        {
+          @Override
+          public void valueChanged(ListSelectionEvent Event)
+          {
+            String value;
+            int indexValue;
+            if (nameAnimalList.getSelectedValue() != null)
+            {
+              value = nameAnimalList.getSelectedValue().getName();
+              indexValue = 0;
+              while (indexValue < Animal.elements.getSize())
+                if (value.equals(Animal.elements.elementAt(indexValue).getName()))
+                  break;
+                else
+                  indexValue++;
+              if (indexValue < Animal.elements.getSize())
+                VirtualSafary.animal = Animal.elements.elementAt(indexValue);
+              printAnimal();
+            }
+          }
+        }
+    );
 
     nameAnimalPanel = new JPanel();
     nameAnimalPanel.add(scrollPane);
@@ -265,11 +275,12 @@ class MainFrame extends JFrame
         //если травоядное и рядом с ним хищник, то выбирается вариант убежать
         if (!(temp.Order()) && (Animal.mapPredator[temp.getY() + 5][temp.getX() + 9].size() > 0))
           var = 1;
-        switch (var) {
+        switch (var)
+        {
           case 1:
             //погулять
             eventText.append(temp.getName() + " go from " + temp.getX() + " " + temp.getY() + " to ");
-              Animal.elements.elementAt(i).walk(11,19);
+            Animal.elements.elementAt(i).walk(11, 19);
             eventText.append(temp.getX() + " " + temp.getY() + '\n');
             break;
           case 2:
@@ -287,6 +298,7 @@ class MainFrame extends JFrame
       printAnimal();
     }
   }
+
   okAction okAc = new okAction();
 
   class eatAction implements ActionListener
@@ -297,18 +309,21 @@ class MainFrame extends JFrame
     @Override
     public void actionPerformed(ActionEvent e)
     {
-      if (nameAnimalList.getSelectedValue() != null) {
+      if (nameAnimalList.getSelectedValue() != null)
+      {
         eatAnimal(nameAnimalList.getSelectedValue());
         nameAnimalList.getSelectedValue().Mature();
       }
     }
   }
+
   eatAction eatAc = new eatAction();
 
   /**
    * Если голоден, то ищет еду и выдает соответствующее сообщение
    * той или иной ситуации
    * (не хочет, ушел искать туда)
+   *
    * @param temp голодное животное
    */
   public void eatAnimal(Animal temp)
@@ -324,8 +339,7 @@ class MainFrame extends JFrame
     {
       tempSatiety = temp.getSatiety() - tempSatiety;
       eventText.append(temp.getName() + " сожрал " + (int) tempSatiety + " листьев\n");
-    }
-    else
+    } else
     {
       eventText.append(temp.getName() + " go from " + tempX + " " + tempY + " to ");
       eventText.append(temp.getX() + " " + temp.getY() + " go к еде!\n");
@@ -354,6 +368,7 @@ class MainFrame extends JFrame
       nameAnimalPanel.repaint();
     }
   }
+
   playAction playAc = new playAction();
 
   class walkAction implements ActionListener
@@ -377,6 +392,7 @@ class MainFrame extends JFrame
       nameAnimalPanel.repaint();
     }
   }
+
   walkAction walkAc = new walkAction();
 
   class sleepAction implements ActionListener
@@ -387,7 +403,8 @@ class MainFrame extends JFrame
     @Override
     public void actionPerformed(ActionEvent e)
     {
-      if (nameAnimalList.getSelectedValue() != null) {
+      if (nameAnimalList.getSelectedValue() != null)
+      {
         nameAnimalList.getSelectedValue().Sleep();
         nameAnimalList.getSelectedValue().LowSatiety();
         nameAnimalList.getSelectedValue().Mature();
@@ -396,6 +413,7 @@ class MainFrame extends JFrame
       }
     }
   }
+
   sleepAction sleepAc = new sleepAction();
 
   class dieAction implements ActionListener
@@ -411,6 +429,7 @@ class MainFrame extends JFrame
       nameAnimalPanel.repaint();
     }
   }
+
   dieAction dieAc = new dieAction();
 
   class changeAction implements ActionListener
@@ -430,14 +449,17 @@ class MainFrame extends JFrame
       printAnimal();
     }
   }
+
   changeAction changeAc = new changeAction();
 
   /**
    * подгоняет данные в нужный вид для перерисовки инфы о животном
    */
-  private void printAnimal() {
+  private void printAnimal()
+  {
     String[] valueElementsHome = new String[8];
-    if (nameAnimalList.getSelectedValue() != null) {
+    if (nameAnimalList.getSelectedValue() != null)
+    {
       Animal temp = nameAnimalList.getSelectedValue();
       int i = 0;
       valueElementsHome[i++] = temp.getName();
@@ -454,6 +476,7 @@ class MainFrame extends JFrame
 
   /**
    * Перерисовывает информацию о животном на верхней панели.
+   *
    * @param valueLabel Список с данными
    * @param valuePhoto Фото животного
    */
@@ -489,7 +512,7 @@ class MainFrame extends JFrame
   private String moodS = "Mood: ";
   ImageIcon icon = new ImageIcon();
   JLabel comp;                            //с картинкой о животном
-  JTextArea eventText = new JTextArea(3,60);
+  JTextArea eventText = new JTextArea(3, 60);
   private JList<Animal> nameAnimalList;
   private JPanel nameAnimalPanel;
   private JPanel movePanel;

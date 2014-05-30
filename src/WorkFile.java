@@ -4,15 +4,18 @@ public class WorkFile
 {
   public static void read()
   {
-    try {
+    try
+    {
       BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("bd.txt")));
       String[] newAnimal;
       String stringNewAnimal;
       Animal value;
-      while (reader.ready()) {
+      while (reader.ready())
+      {
         stringNewAnimal = reader.readLine();
         newAnimal = stringNewAnimal.split(";");
-        switch (newAnimal[0]) {
+        switch (newAnimal[0])
+        {
           case "Lion":
             value = new Lion(newAnimal);
             Animal.elements.addElement(value);
@@ -45,36 +48,34 @@ public class WorkFile
             break;
         }
       }
-    }
-    catch (Exception e) {
+    } catch (Exception e)
+    {
       e.printStackTrace();
     }
   }
 
   public static void write(String value)
   {
-    try {
-      //BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("bd.txt", false)));
+    try
+    {
       PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("bd.txt", true)));
-      //writer.write(value);
-      //writer.newLine();
-      //writer.close();
       out.println(value);
       out.close();
-    }
-    catch (Exception e) {
+    } catch (Exception e)
+    {
       e.printStackTrace();
     }
   }
 
   public static void newFile()
   {
-    try {
+    try
+    {
       PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("bd.txt")));
       out.print(' ');
       out.close();
-    }
-    catch (Exception e) {
+    } catch (Exception e)
+    {
       e.printStackTrace();
     }
   }

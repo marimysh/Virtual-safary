@@ -76,6 +76,7 @@ abstract class Animal
 
   /**
    * меняется координата X животного на новую
+   *
    * @param x новое значение
    */
   protected void setX(int x)

@@ -41,6 +41,7 @@ class NewAnimalDialogD extends JDialog
 
   /**
    * Создание диалога для изменения данных выбранного животного
+   *
    * @param value - выбранное животное
    */
   public NewAnimalDialogD(final Animal value)
@@ -57,27 +58,29 @@ class NewAnimalDialogD extends JDialog
     panel.add(yFi);
     cancelBut.addActionListener(closeAc);
     okBut.addActionListener(new AbstractAction()
+    {
+      @Override
+      public void actionPerformed(ActionEvent actionEvent)
       {
-        @Override
-        public void actionPerformed(ActionEvent actionEvent)
+        if (!value.getName().equals(nameFi.getText()) && !"".equals(nameFi.getText()))
+          value.setName(nameFi.getText());
+        if (!"".equals(xFi.getText()))
         {
-          if (value.getName() != nameFi.getText() && nameFi.getText() != "")
-            value.setName(nameFi.getText());
-          if (xFi.getText() != "") {
-            int x = Integer.parseInt(xFi.getText());
-            if (value.getX() != x)
-              value.setX(x);
-          }
-          if (yFi.getText() != "") {
-            int y = Integer.parseInt(yFi.getText());
-            if (value.getY() != y)
-              value.setY(y);
-          }
-          //сохраняем измененное в глобальную переменную
-          VirtualSafary.animal = value;
-          dispose();
+          int x = Integer.parseInt(xFi.getText());
+          if (value.getX() != x)
+            value.setX(x);
         }
-      });
+        if (!"".equals(yFi.getText()))
+        {
+          int y = Integer.parseInt(yFi.getText());
+          if (value.getY() != y)
+            value.setY(y);
+        }
+        //сохраняем измененное в глобальную переменную
+        VirtualSafary.animal = value;
+        dispose();
+      }
+    });
     okBut.setText("Change");
     panel.add(okBut);
     panel.add(cancelBut);
@@ -142,7 +145,8 @@ class NewAnimalDialogD extends JDialog
       dispose();
     }
   }
-  SaveAction saveAction= new SaveAction();
+
+  SaveAction saveAction = new SaveAction();
 
   /**
    * выход без изменений
@@ -155,5 +159,6 @@ class NewAnimalDialogD extends JDialog
       dispose();
     }
   }
+
   CloseAction closeAc = new CloseAction();
 }

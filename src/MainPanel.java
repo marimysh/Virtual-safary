@@ -6,20 +6,21 @@ import java.io.IOException;
 
 class MainPanel extends JPanel
 {
-  public MainPanel()                                          //кнопочки
+  public MainPanel()
   {
     //берем картинки карты и травы
-    try {
+    try
+    {
       mapSafary = ImageIO.read(new File("Safary2.jpeg"));
       grass = ImageIO.read(new File("grass.png"));
-    }
-    catch (IOException e)
+    } catch (IOException e)
     {
       e.printStackTrace();
     }
   }
 
-  public void paint(Graphics g) {
+  public void paint(Graphics g)
+  {
     super.paint(g);
     g.drawImage(mapSafary, 0, 0, null);
     //рисуем животных
