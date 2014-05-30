@@ -163,7 +163,7 @@ class MainFrame extends JFrame
                                                       value = nameAnimalList.getSelectedValue().getName();
                                                       indexValue = 0;
                                                       while (indexValue < Animal.elements.getSize())
-                                                        if (value == Animal.elements.elementAt(indexValue).getName())
+                                                        if (value.equals(Animal.elements.elementAt(indexValue).getName()))
                                                           break;
                                                         else
                                                           indexValue++;
